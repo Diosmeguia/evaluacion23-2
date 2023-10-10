@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -21,5 +19,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green), 
->>>>>>> parent of 71ba74b (codigo completo main.dart)
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green), // Cambié el color a verde
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(title: 'Practica'),
+    );
+  }
+}
