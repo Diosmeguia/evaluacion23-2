@@ -15,6 +15,7 @@ class Test {
     required this.telefono,
   });
 }
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp().then((_) {
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
@@ -113,3 +115,118 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        backgroundColor: Colors.green,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _buildRoundedTextField(
+              controller: idController,
+              labelText: 'Ingrese su ID',
+              icon: Icons.perm_identity,
+            ),
+            SizedBox(height: 4.0),
+            _buildRoundedTextField(
+              controller: nombreController,
+              labelText: 'Ingrese su Nombre',
+              icon: Icons.person,
+            ),
+            SizedBox(height: 4.0),
+            _buildRoundedTextField(
+              controller: edadController,
+              labelText: 'Ingrese su Edad',
+              icon: Icons.format_list_numbered,
+            ),
+            SizedBox(height: 4.0),
+            _buildRoundedTextField(
+              controller: telefonoController,
+              labelText: 'Ingrese su numero de telefono',
+              icon: Icons.phone_android,
+            ),
+            SizedBox(height: 6.0),
+            Row(
+              children: [
+                ElevatedButton.icon(
+                  onPressed: addTest,
+                  icon: Icon(Icons.add),
+                  label: Text('AGREGAR'),
+                ),
+                SizedBox(width: 4.0),
+                ElevatedButton.icon(
+                  onPressed: reloadTests,
+                  icon: Icon(Icons.refresh),
+                  label: Text('ACTUALIZAR'),
+                ),
+              ],
+            ),
+            SizedBox(height: 8.0),
+            Text(
+              'Lista de Registros:',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 6.0),
+            Expanded(
+              child: FutureBuilder<List<Test>>(
+                future: getTests(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Center(
+                      child: Text('ERROR'),
+                    );
+                  } else {
+                    List<Test>? tests = snapshot.data;
+                    return ListView.builder(
+                      itemCount: tests!.length,
+                      itemBuilder: (context, index) {
+                        Test test = tests[index];
+                        return ListTile(
+                          title: Text('ID: ${test.id}'),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Nombre: ${test.nombre}'),
+                              Text('Edad: ${test.edad}'),
+                              Text('Teléfono: ${test.telefono}'),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRoundedTextField({
+    required TextEditingController controller,
+    required String labelText,
+    required IconData icon,
+  }) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: labelText,
+        prefixIcon: Icon(icon),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
+    );
+  }
+}
