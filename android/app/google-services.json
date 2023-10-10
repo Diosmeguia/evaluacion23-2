@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "344687158126",
+    "project_id": "evaluacion23-5ce70",
+    "storage_bucket": "evaluacion23-5ce70.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344687158126:android:1b650e9d908fc17b15577f",
+        "android_client_info": {
+          "package_name": "com.dilm.evaluacion23"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgdE2V-ibba-7M2RDiWDzjTY8RbPs4rY0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
